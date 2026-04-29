@@ -75,26 +75,31 @@ Utilizatorii au nevoie de o modalitate rapidă și intuitivă de a verifica vrem
 ## Interfața principală
 ![Home](images/home-page.png)
 
-## Afișare vreme Madrid
-![Weather](images/afisare-vreme-madrid.jpeg)
-
-## Buton Get Weather
-![Get Weather](images/button-get-weather.jpeg)
-
-## Locație actuală
-![Location](images/locatia-exacta.jpeg)
-
-## Buton Favorite
-![Favorite](images/button-favorite.jpeg)
-
-## Adăugare Madrid la favorite
-![Add Favorite](images/madrid-adaugat-la-favorite.jpeg)
-
 ## Buton Night Mode
 ![Night mode button](images/night-mode-button.jpeg)
 
 ## Dark mode activ
 ![Night mode](images/night-mode.jpeg)
+
+## Buton locatie actuala
+![Location Button](buton-locatie-actuala.jpeg)
+
+## Locație actuală
+![Location](images/locatia-exacta.jpeg)
+
+## Buton Get Weather
+![Get Weather](images/button-get-weather.jpeg)
+
+## Afișare vreme Madrid
+![Weather](images/afisare-vreme-madrid.jpeg)
+
+## Adăugare Madrid la favorite
+![Add Favorite](images/madrid-adaugat-la-favorite.jpeg)
+
+## Buton Favorite
+![Favorite](images/button-favorite.jpeg)
+
+
 
 # 6. Referințe
 https://open-meteo.com/
