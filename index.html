@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<button class="top-btn left" onclick="toggleTheme()">🌙</button>
+<button class="top-btn right" onclick="getMyLocation()">📍</button>
+
+<div class="container">
+
+    <h1>🌤 Weather App</h1>
+
+    <input type="text" id="city" placeholder="Enter city">
+
+    <div class="row">
+        <button onclick="getWeather()">Get Weather</button>
+        <button onclick="toggleFavorite()">⭐</button>
+    </div>
+
+    <p id="loading"></p>
+    <p id="result"></p>
+
+    <h3>⭐ Favorites</h3>
+    <ul id="history"></ul>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
