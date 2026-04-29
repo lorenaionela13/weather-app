@@ -82,7 +82,7 @@ Utilizatorii au nevoie de o modalitate rapidă și intuitivă de a verifica vrem
 ![Night mode](images/night-mode.jpeg)
 
 ## Buton locatie actuala
-![Location Button](buton-locatie-actuala.jpeg)
+![Location Button](images/buton-locatie-actuala.jpeg)
 
 ## Locație actuală
 ![Location](images/locatia-exacta.jpeg)
