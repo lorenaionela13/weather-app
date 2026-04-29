@@ -10,6 +10,7 @@
 [Adaugă aici link YouTube (unlisted)]
 
 ## Github
+[https://github.com/lorenaionela13/weather-app]
 
 # 1. Introducere
 
