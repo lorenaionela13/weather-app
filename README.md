@@ -3,12 +3,13 @@
 **Nume Prenume:Cristian Lorena-Ionela**   
 **Grupa:1145** 
 
-## 🔗 Link aplicație
+## Link aplicație
 [Adaugă aici link-ul de pe Vercel / Netlify]
 
-## 🎥 Video prezentare
+## Video prezentare
 [Adaugă aici link YouTube (unlisted)]
 
+## Github
 
 # 1. Introducere
 
@@ -49,7 +50,6 @@ Utilizatorii au nevoie de o modalitate rapidă și intuitivă de a verifica vrem
 ### Request (Geocoding): GET https://geocoding-api.open-meteo.com/v1/search?name=London
 
 ### Response:
-```json
 {
   "results": [
     {
