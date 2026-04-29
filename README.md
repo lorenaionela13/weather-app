@@ -93,12 +93,11 @@ Utilizatorii au nevoie de o modalitate rapidă și intuitivă de a verifica vrem
 ## Afișare vreme Madrid
 ![Weather](images/afisare-vreme-madrid.jpeg)
 
-## Adăugare Madrid la favorite
-![Add Favorite](images/madrid-adaugat-la-favorite.jpeg)
-
 ## Buton Favorite
 ![Favorite](images/button-favorite.jpeg)
 
+## Adăugare Madrid la favorite
+![Add Favorite](images/madrid-adaugata-la-favorite.jpeg)
 
 
 # 6. Referințe
