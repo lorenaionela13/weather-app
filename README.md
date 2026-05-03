@@ -27,16 +27,16 @@ JavaScript (ES6 Modules) – pentru logică și interactivitate
 
 # Servicii Cloud utilizate:
 
-1.Firebase Authentication
+1.Firebase Authentication:
 gestionarea conturilor de utilizator
 login / register
 persistența sesiunii
 
-2.Firebase Firestore
+2.Firebase Firestore:
 stocarea orașelor favorite pentru fiecare utilizator
 date salvate în cloud
 
-3.OpenWeather API
+3.OpenWeather API:
 obținerea datelor meteo în timp real
 
 # 3. Funcționalități principale
@@ -76,30 +76,37 @@ Exemplu Response:
 # 5. Flux de date
 
 ## Procesul aplicației:
+
 1.Utilizatorul își creează cont sau se loghează
+
 2.După autentificare este redirecționat către aplicația principală
+
 3.Utilizatorul introduce un oraș sau folosește locația curentă
+
 4.Aplicația trimite request către OpenWeather API
+
 5.Datele meteo sunt procesate și afișate în interfață
+
 6.Utilizatorul poate adăuga orașul la favorite
+
 7.Favoritele sunt salvate în Firebase Firestore și încărcate automat la autentificare
 
 
 # 6. Capturi ecran aplicație
 
-## Interfața principală
+## The main interface
 ![Home](images/home-page.jpeg)
 
-## Inregistrare user
+## Register User
 ![Register](images/register.jpeg)
 
-##After login
+## After login
 ![After login](images/after-login.jpeg)
 
 ## Buton Night Mode
 ![Night mode button](images/night-mode-button.jpeg)
 
-## Locație actuală
+## Exact location
 ![Location](images/locatia-exacta.jpeg)
 
 ## Buton Get Weather
@@ -108,7 +115,7 @@ Exemplu Response:
 ## Buton Favorite
 ![Favorite](images/adauga-favorit.jpeg)
 
-## Limitatoare
+## Limiting
 
 ## Create an user with already existing credentials
 ![Duplicate](images/create-user-with-already-existing-user.jpeg)
