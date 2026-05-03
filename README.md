@@ -4,7 +4,7 @@
 **Grupa:1145** 
 
 ## Link aplicație
-[Adaugă aici link-ul de pe Vercel / Netlify]
+[https://weather-app-kohl-nine-37.vercel.app/]
 
 ## Video prezentare
 [Adaugă aici link YouTube (unlisted)]
@@ -14,76 +14,90 @@
 
 # 1. Introducere
 
-Această aplicație web permite utilizatorilor să afle rapid condițiile meteo pentru un oraș introdus sau pentru locația lor curentă. Aplicația oferă și funcționalități suplimentare precum salvarea orașelor favorite și mod dark/light.
+Aplicația „Smart Weather” este o aplicație web care permite utilizatorilor să verifice condițiile meteo pentru diferite orașe. Aceasta oferă funcționalități precum autentificare, salvarea orașelor favorite și obținerea locației curente.
+Scopul aplicației este de a demonstra utilizarea serviciilor cloud și integrarea acestora într-o aplicație web modernă.
 
 
-# 2. Descriere problemă
+# 2.Tehnologii utilizate:
 
-Utilizatorii au nevoie de o modalitate rapidă și intuitivă de a verifica vremea fără a accesa site-uri complexe sau aplicații greoaie. De asemenea, este utilă salvarea orașelor frecvent căutate pentru acces rapid.
+Aplicația a fost dezvoltată folosind următoarele tehnologii:
+HTML5 – pentru structura paginilor
+CSS3 – pentru stilizarea interfeței
+JavaScript (ES6 Modules) – pentru logică și interactivitate
 
+# Servicii Cloud utilizate:
 
-# 3. Descriere API
+1.Firebase Authentication
+gestionarea conturilor de utilizator
+login / register
+persistența sesiunii
 
-## 🌍 Open-Meteo API
-- furnizează date meteo în timp real
-- nu necesită API key
-- endpoint: https://api.open-meteo.com/v1/forecast
+2.Firebase Firestore
+stocarea orașelor favorite pentru fiecare utilizator
+date salvate în cloud
 
-## 📍 Geocoding API (Open-Meteo)
-- convertește numele orașului în coordonate geografice
-- endpoint: https://geocoding-api.open-meteo.com/v1/search
+3.OpenWeather API
+obținerea datelor meteo în timp real
 
+# 3. Funcționalități principale
 
-# 4. Flux de date
+Aplicația oferă următoarele funcționalități:
 
-## Procesul aplicației:
+Creare cont (register)
+Autentificare utilizator (login)
+Persistența sesiunii (user rămâne logat după refresh)
+Căutare vreme după oraș
+Obținere vreme pe baza locației curente (geolocation)
+Salvarea orașelor favorite (per utilizator)
+Interfață dinamică (schimbare temă + background în funcție de vreme)
 
-1. Utilizatorul introduce un oraș
-2. Aplicația trimite request către Geocoding API
-3. Se obțin coordonatele (latitudine + longitudine)
-4. Se trimite request către Weather API
-5. Se primește temperatura și viteza vântului
-6. Datele sunt afișate în UI
+# 4. Descriere API
 
+##  Open-Meteo API
+Aplicația utilizează OpenWeather API pentru a obține date meteo în timp real.
 
-## Exemple de request / response
+Endpoint utilizat: https://api.openweathermap.org/data/2.5/weather
 
-### Request (Geocoding): GET https://geocoding-api.open-meteo.com/v1/search?name=London
+Exemplu Request: GET https://api.openweathermap.org/data/2.5/weather?q=London&appid=API_KEY&units=metric
 
-### Response:
+Exemplu Response:
 {
-  "results": [
+  "name": "London",
+  "main": {
+    "temp": 15.2
+  },
+  "weather": [
     {
-      "name": "London",
-      "latitude": 51.5072,
-      "longitude": -0.1276
+      "description": "clear sky"
     }
   ]
 }
 
-### Request Weather API: GET https://api.open-meteo.com/v1/forecast?latitude=51.5&longitude=-0.12&current_weather=true
+# 5. Flux de date
 
-### Response:
-{
-  "current_weather": {
-    "temperature": 12.3,
-    "windspeed": 8.5
-  }
-}
+## Procesul aplicației:
+1.Utilizatorul își creează cont sau se loghează
+2.După autentificare este redirecționat către aplicația principală
+3.Utilizatorul introduce un oraș sau folosește locația curentă
+4.Aplicația trimite request către OpenWeather API
+5.Datele meteo sunt procesate și afișate în interfață
+6.Utilizatorul poate adăuga orașul la favorite
+7.Favoritele sunt salvate în Firebase Firestore și încărcate automat la autentificare
 
-# 5. Capturi ecran aplicație
+
+# 6. Capturi ecran aplicație
 
 ## Interfața principală
-![Home](images/home-page.png)
+![Home](images/home-page.jpeg)
+
+## Inregistrare user
+![Register](images/register.jpeg)
+
+##After login
+![After login](images/after-login.jpeg)
 
 ## Buton Night Mode
 ![Night mode button](images/night-mode-button.jpeg)
-
-## Dark mode activ
-![Night mode](images/night-mode.jpeg)
-
-## Buton locatie actuala
-![Location Button](images/buton-locatie-actuala.jpeg)
 
 ## Locație actuală
 ![Location](images/locatia-exacta.jpeg)
@@ -91,16 +105,26 @@ Utilizatorii au nevoie de o modalitate rapidă și intuitivă de a verifica vrem
 ## Buton Get Weather
 ![Get Weather](images/button-get-weather.jpeg)
 
-## Afișare vreme Madrid
-![Weather](images/afisare-vreme-madrid.jpeg)
-
 ## Buton Favorite
-![Favorite](images/button-favorite.jpeg)
+![Favorite](images/adauga-favorit.jpeg)
 
-## Adăugare Madrid la favorite
-![Add Favorite](images/madrid-adaugata-la-favorite.jpeg)
+## Limitatoare
+
+## Create an user with already existing credentials
+![Duplicate](images/create-user-with-already-existing-user.jpeg)
+
+## Use different password for register
+![Password dif](images/password-doesnt-mach.jpeg)
+
+## User different password for login
+![Password login](images/pass.jpeg)
 
 
-# 6. Referințe
-https://open-meteo.com/
-https://open-meteo.com/en/docs/geocoding-api
+# 7. Concluzie
+
+Aplicația „Smart Weather” demonstrează utilizarea eficientă a tehnologiilor web moderne și integrarea serviciilor cloud.
+Prin implementarea autentificării, persistentei datelor și utilizarea unui API extern, aplicația oferă o experiență completă și interactivă utilizatorului.
+
+# 8. Referințe
+https://openweathermap.org/api
+https://firebase.google.com/

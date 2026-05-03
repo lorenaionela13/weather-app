@@ -1,100 +1,274 @@
-let history = JSON.parse(localStorage.getItem("favorites")) || [];
-let currentCity = "";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import {
+    getFirestore,
+    doc,
+    setDoc,
+    getDoc
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-async function getWeather(cityInput) {
-    const city = cityInput || document.getElementById("city").value;
-    currentCity = city;
+/* ================= FIREBASE ================= */
 
-    const resultEl = document.getElementById("result");
-    const loadingEl = document.getElementById("loading");
+const firebaseConfig = {
+  apiKey: "AIzaSyBrbo7tu2OdkqvNmJP33w0prL_6OqaW5Uc",
+  authDomain: "weather-app-48a87.firebaseapp.com",
+  projectId: "weather-app-48a87",
+  storageBucket: "weather-app-48a87.firebasestorage.app",
+  messagingSenderId: "805154255065",
+  appId: "1:805154255065:web:1be6a1ff9a964c9a704ec8",
+  measurementId: "G-81XHRF8S9Q"
+};
 
-    try {
-        loadingEl.innerText = "⏳ Loading...";
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-        // 1. Geocoding API
-        const geoResponse = await fetch(
-            `https://geocoding-api.open-meteo.com/v1/search?name=${city}`
-        );
-        const geoData = await geoResponse.json();
+const traduceriVreme = {
+    "clear sky": "cer senin",
+    "few clouds": "câțiva nori",
+    "scattered clouds": "nori răzleți",
+    "broken clouds": "cer noros",
+    "shower rain": "ploaie scurtă",
+    "rain": "ploaie",
+    "thunderstorm": "furtună",
+    "snow": "ninsoare",
+    "mist": "ceață"
+};
 
-        if (!geoData.results) {
-            resultEl.innerText = "Orașul nu a fost găsit";
-            return;
-        }
+/* ================= NAVIGATION ================= */
 
-        const { latitude, longitude } = geoData.results[0];
-
-        // 2. Weather API
-        const weatherResponse = await fetch(
-            `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`
-        );
-        const weatherData = await weatherResponse.json();
-
-        const temp = weatherData.current_weather.temperature;
-        const wind = weatherData.current_weather.windspeed;
-
-        let icon = "🌤";
-        if (temp <= 0) icon = "❄️";
-        else if (temp < 10) icon = "🌥";
-        else if (temp < 20) icon = "⛅";
-        else icon = "☀️";
-
-        resultEl.innerText = `${icon} ${city}: ${temp}°C | Vânt: ${wind} km/h`;
-
-    } catch (error) {
-        resultEl.innerText = "Eroare la încărcarea datelor";
-    } finally {
-        loadingEl.innerText = "";
-    }
+function goToRegister() {
+    window.location.href = "register.html";
 }
 
-/* ⭐ FAVORITE */
-function toggleFavorite() {
-    if (!currentCity) return;
+function goToLogin() {
+    window.location.href = "index.html";
+}
 
-    if (!history.includes(currentCity)) {
-        history.push(currentCity);
-    } else {
-        history = history.filter(c => c !== currentCity);
+/* ================= AUTH ================= */
+
+async function register() {
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const confirm = document.getElementById("confirmPassword").value.trim();
+
+    if (password !== confirm) {
+        alert("Parolele nu coincid!");
+        return;
     }
 
-    localStorage.setItem("favorites", JSON.stringify(history));
+    try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        alert("Cont creat!");
+        window.location.href = "index.html";
+    } catch (e) {
+        alert(e.message);
+    }
+}
+onAuthStateChanged(auth, (user) => {
+    const isAppPage = window.location.pathname.includes("app.html");
+
+    if (user) {
     renderFavorites();
 }
 
-function renderFavorites() {
-    const list = document.getElementById("history");
-    list.innerHTML = "";
+    if (!user && isAppPage) {
+        // dacă NU e logat și încearcă să intre în aplicație
+        window.location.href = "index.html";
+    }
 
-    history.forEach(city => {
-        const li = document.createElement("li");
-        li.innerText = city;
-        li.onclick = () => getWeather(city);
-        list.appendChild(li);
-    });
+    if (user && !isAppPage) {
+        // dacă e logat și e pe login/register → trimite-l în app
+        window.location.href = "app.html";
+    }
+});
+
+async function login() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    try {
+        await signInWithEmailAndPassword(auth, email, password);
+        window.location.href = "app.html";
+    } catch (e) {
+        alert(e.message);
+    }
 }
 
-/* 🌙 DARK MODE */
-function toggleTheme() {
-    document.body.classList.toggle("dark");
+function logout() {
+    signOut(auth);
+    window.location.href = "index.html";
 }
 
-/* 📍 GEOLOCATION */
-function getMyLocation() {
+async function getWeather() {
+    const city = document.getElementById("city").value;
+
+    if (!city) {
+        alert("Scrie un oraș!");
+        return;
+    }
+
+    try {
+        const res = await fetch(
+            `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=3fe7c095bd8367c8a38436a235befaa8&units=metric`
+        );
+
+        const data = await res.json();
+
+            document.body.classList.remove("dark-login","sunny","rain","snow","cloudy");
+
+if (data.weather[0].main === "Clear") document.body.classList.add("sunny");
+if (data.weather[0].main === "Clouds") document.body.classList.add("cloudy");
+if (data.weather[0].main === "Rain") document.body.classList.add("rain");
+if (data.weather[0].main === "Snow") document.body.classList.add("snow");
+
+       if (Number(data.cod) !== 200) {
+    document.getElementById("result").innerText =
+        data.message || "Oraș invalid";
+    return;
+}
+
+       const descriereEN = data.weather[0].description;
+
+const descriereRO = traduceriVreme[descriereEN] || descriereEN;
+
+document.getElementById("result").innerText =
+    `${data.name}: ${data.main.temp}°C, ${descriereRO}`;
+
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+function getLocation() {
+    if (!navigator.geolocation) {
+        alert("Geolocation nu este suportat");
+        return;
+    }
+
     navigator.geolocation.getCurrentPosition(async (pos) => {
         const lat = pos.coords.latitude;
         const lon = pos.coords.longitude;
 
-        const response = await fetch(
-            `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`
-        );
+        try {
+            const res = await fetch(
+                `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=3fe7c095bd8367c8a38436a235befaa8&units=metric`
+            );
 
-        const data = await response.json();
-        const temp = data.current_weather.temperature;
+            const data = await res.json();
 
-        document.getElementById("result").innerText =
-            `📍 Locația ta: ${temp}°C`;
+            document.getElementById("result").innerText =
+                `${data.name}: ${data.main.temp}°C`;
+
+        } catch (err) {
+            console.log(err);
+        }
     });
 }
 
-renderFavorites();
+async function toggleFavorite() {
+    console.log("CLICK FAVORITE");
+    try {
+        const city = document.getElementById("city").value;
+
+        if (!city) {
+            alert("Scrie un oraș mai întâi!");
+            return;
+        }
+
+        const user = auth.currentUser;
+
+        if (!user) {
+            alert("Nu ești logat încă! Așteaptă o secundă.");
+            return;
+        }
+
+        const userRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(userRef);
+
+        let favorites = [];
+
+        if (docSnap.exists()) {
+            favorites = docSnap.data().favorites || [];
+        }
+
+        if (favorites.includes(city)) {
+            favorites = favorites.filter(c => c !== city);
+            alert("Șters din favorite");
+        } else {
+            favorites.push(city);
+            alert("Adăugat la favorite");
+        }
+
+        await setDoc(userRef, { favorites });
+
+        renderFavorites();
+
+    } catch (err) {
+        console.error(err);
+        alert("Eroare: " + err.message);
+    }
+}
+async function renderFavorites() {
+    const list = document.getElementById("favoritesList");
+    if (!list) return;
+
+    const user = auth.currentUser;
+
+    if (!user) return;
+
+    const userRef = doc(db, "users", user.uid);
+    const docSnap = await getDoc(userRef);
+
+    let favorites = [];
+
+    if (docSnap.exists()) {
+        favorites = docSnap.data().favorites || [];
+    }
+
+    list.innerHTML = "";
+
+    favorites.forEach(city => {
+        const li = document.createElement("li");
+        li.innerText = city;
+
+        li.onclick = () => {
+            document.getElementById("city").value = city;
+            getWeather();
+        };
+
+        list.appendChild(li);
+    });
+}
+
+window.renderFavorites = renderFavorites;
+
+
+window.toggleFavorite = toggleFavorite;
+
+window.getLocation = getLocation;
+
+function toggleTheme() {
+    document.body.classList.toggle("dark");
+}
+window.toggleTheme = toggleTheme;
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    renderFavorites();
+});
+window.getWeather = getWeather;
+
+/* ================= EXPORT FUNCTIONS ================= */
+
+window.register = register;
+window.login = login;
+window.logout = logout;
+window.goToRegister = goToRegister;
+window.goToLogin = goToLogin;

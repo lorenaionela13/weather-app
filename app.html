@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<title>Weather App</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="default">
+
+<div class="container">
+
+    <h1>🌦 Smart Weather</h1>
+
+    <!-- TOP BUTTONS -->
+    <div class="top-buttons">
+        <button class="icon-btn" onclick="toggleTheme()">🌙</button>
+        <button class="icon-btn" onclick="getLocation()">📍</button>
+    </div>
+
+    <!-- INPUT + FAVORITE -->
+    <div class="input-box">
+        <input id="city" type="text" placeholder="Introdu orașul">
+        <button class="fav-btn" onclick="toggleFavorite()">⭐</button>
+    </div>
+
+    <!-- WEATHER BUTTON -->
+    <div class="row">
+        <button onclick="getWeather()">Get Weather</button>
+    </div>
+
+    <!-- RESULT -->
+    <p id="result"></p>
+
+    <!-- FAVORITES -->
+    <ul id="favoritesList"></ul>
+
+    <!-- LOGOUT -->
+    <button class="logout-btn" onclick="logout()">Logout</button>
+
+</div>
+
+<script type="module" src="script.js"></script>
+
+</body>
+</html>

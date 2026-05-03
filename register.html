@@ -2,21 +2,22 @@
 <html lang="ro">
 <head>
 <meta charset="UTF-8">
-<title>Login</title>
+<title>Register</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body class="default">
 
 <div class="container">
-    <h2>Login</h2>
+    <h2>Register</h2>
 
     <input id="email" type="email" placeholder="Email">
     <input id="password" type="password" placeholder="Parolă">
+    <input id="confirmPassword" type="password" placeholder="Confirmă parola">
 
-    <button onclick="login()">Login</button>
+    <button onclick="register()">Creează cont</button>
 
-    <p onclick="goToRegister()" style="cursor:pointer;color:blue;">
-        Nu ai cont? Register
+    <p onclick="goToLogin()" style="cursor:pointer;color:blue;">
+        Ai deja cont? Login
     </p>
 </div>
 
