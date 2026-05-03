@@ -43,12 +43,18 @@ obținerea datelor meteo în timp real
 
 Aplicația oferă următoarele funcționalități:
 
-Creare cont (register)
-Autentificare utilizator (login)
-Persistența sesiunii (user rămâne logat după refresh)
-Căutare vreme după oraș
-Obținere vreme pe baza locației curente (geolocation)
-Salvarea orașelor favorite (per utilizator)
+Creare cont (register),
+
+Autentificare utilizator (login),
+
+Persistența sesiunii (user rămâne logat după refresh),
+
+Căutare vreme după oraș,
+
+Obținere vreme pe baza locației curente (geolocation),
+
+Salvarea orașelor favorite (per utilizator),
+
 Interfață dinamică (schimbare temă + background în funcție de vreme)
 
 # 4. Descriere API
@@ -134,4 +140,5 @@ Prin implementarea autentificării, persistentei datelor și utilizarea unui API
 
 # 8. Referințe
 https://openweathermap.org/api
+
 https://firebase.google.com/
