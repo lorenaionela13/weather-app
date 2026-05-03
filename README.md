@@ -7,7 +7,7 @@
 [https://weather-app-kohl-nine-37.vercel.app/]
 
 ## Video prezentare
-[Adaugă aici link YouTube (unlisted)]
+[https://youtu.be/6WtjgkT9fec]
 
 ## Github
 [https://github.com/lorenaionela13/weather-app]
